@@ -20,6 +20,15 @@ miosix_def = {'DONT_USE_CMSIS_INIT'       : '',
               '_POSIX_PRIORITY_SCHEDULING': ''}
 
 ##
+## ARM Cortex M3
+##
+miosix_cm3_inc = miosix_inc + ['lib/miosix-kernel/miosix/arch/cortexM3']
+miosix_cm3_src = miosix_src + ['lib/miosix-kernel/miosix/arch/cortexM3/portability.cpp',
+                               'lib/miosix-kernel/miosix/arch/common/core/interrupts_cortexMx.cpp']
+miosix_cm3_def = miosix_def + {'_ARCH_CORTEXM3' : ''}
+
+
+##
 ## ARM Cortex M4
 ##
 miosix_cm4f_inc = miosix_inc + ['lib/miosix-kernel/miosix/arch/cortexM4F']

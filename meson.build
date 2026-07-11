@@ -950,6 +950,7 @@ uf2conv     = find_program('scripts/uf2conv.py',               required:false, d
 dfu_convert = find_program('scripts/dfu-convert.py',           required:false, disabler:true)
 cs7000_wrap = find_program('scripts/cs7000_wrap.py',           required:false, disabler:true)
 
+cm3_targets = []
 cm4_targets = []
 cm7_targets = []
 linux_targets = []
@@ -1088,7 +1089,9 @@ foreach t : targets
 
     endif
 
-    if t['cpu'] == 'cm4'
+    if t['cpu'] == 'cm3'
+      cm3_targets += exe
+    elif t['cpu'] == 'cm4'
       cm4_targets += exe
     elif t['cpu'] == 'cm7'
       cm7_targets += exe
@@ -1099,6 +1102,7 @@ foreach t : targets
   endif
 endforeach
 
+cm3 = alias_target('cm3', cm3_targets)
 cm4 = alias_target('cm4', cm4_targets)
 cm7 = alias_target('cm7', cm7_targets)
 linux = alias_target('linux', linux_targets)
