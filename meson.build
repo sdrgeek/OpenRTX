@@ -596,6 +596,19 @@ dm1701_inc += openrtx_inc + stm32f405_inc
 dm1701_def += openrtx_def + stm32f405_def
 
 ##
+## Yaesu FT-65
+##
+ft65_src = ['platform/targets/FT-65/platform.c',
+              'platform/targets/FT-65/hwconfig.c']
+
+ft65_inc = ['platform/targets/FT-65']
+ft65_def = {'PLATFORM_FT65': '', 'timegm': 'mktime'}
+
+ft65_src += openrtx_src + gd32f103_src + ui_src_default
+ft65_inc += openrtx_inc + gd32f103_inc
+ft65_def += openrtx_def + gd32f103_def
+
+##
 ## -------------------------- Compilation arguments ----------------------------
 ##
 
@@ -717,6 +730,15 @@ foreach k, v : dm1701_def
   endif
 endforeach
 
+ft65_args = []
+foreach k, v : ft65_def
+  if v == ''
+    ft65_args += '-D@0@'.format(k)
+  else
+    ft65_args += '-D@0@=@1@'.format(k, v)
+  endif
+endforeach
+
 linux_opts = {
   'sources'            : linux_default_src,
   'include_directories': linux_inc,
@@ -835,6 +857,15 @@ dm1701_opts = {
   'link_args'          : ['-Wl,-T../platform/mcu/STM32F4xx/linker_script_MDx.ld']
 }
 
+ft65_opts = {
+  'sources'            : ft65_src,
+  'include_directories': ft65_inc,
+  'dependencies'       : [codec2_dep],
+  'c_args'             : ft65_args,
+  'cpp_args'           : ft65_args,
+  'link_args'          : [],
+}
+
 ##
 ## ---------------------------- Compilation targets ----------------------------
 ##
@@ -938,6 +969,14 @@ targets = [
     'load_addr': '0x0800C000',
     'cpu'      : 'cm4'
   },
+  {
+    'name'     : 'ft65',
+    'opts'     : ft65_opts,
+    'flashable': true,
+    'wrap'     : '',
+    'load_addr': '',
+    'cpu'      : 'cm3'
+  }
 ]
 
 radio_tool  = find_program('radio_tool')
