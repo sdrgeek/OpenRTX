@@ -324,6 +324,26 @@ at32f423_inc += miosix_cm4f_inc
 at32f423_def += miosix_cm4f_def
 
 ##
+## GD32F103
+##
+
+gd32f103_src = ['platform/mcu/GD32F10x/boot/startup.cpp',
+                'platform/mcu/GD32F10x/boot/bsp.cpp',
+                'platform/mcu/GD32F10x/boot/libc_integration.cpp',
+                'platform/mcu/CMSIS/Device/GD/GD32F10x/Source/system_gd32f10x.c']
+
+gd32f103_inc = ['platform/mcu/CMSIS/Include',
+                'platform/mcu/CMSIS/Device/GD/GD32F10x/Include',
+                'platform/mcu/GD32F10x',
+                'platform/mcu/GD32F10x/drivers']
+
+gd32f103_def = {'GD32F10X_HD' : ''}
+
+gd32f103_src += miosix_cm3_src
+gd32f103_inc += miosix_cm3_inc
+gd32f103_def += miosix_cm3_def
+
+##
 ## ----------------------- Platform specializations ----------------------------
 ##
 

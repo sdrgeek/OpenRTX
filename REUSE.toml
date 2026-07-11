@@ -117,6 +117,15 @@ SPDX-License-Identifier = "BSD-3-Clause-Clear"
 SPDX-FileCopyrightText = "2025, Artery Technology"
 
 [[annotations]]
+path = [
+    "platform/mcu/CMSIS/Device/GD/GD32F10x/Include/*",
+    "platform/mcu/CMSIS/Device/GD/GD32F10x/Source/system_gd32f10x.c"
+]
+precedence = "aggregate"
+SPDX-License-Identifier = "",
+SPDX-FileCopyrightText = "2026, GigaDevice Semiconductor Inc."
+
+[[annotations]]
 path = "lib/minmea/**/*"
 precedence = "aggregate"
 SPDX-License-Identifier = "WTFPL"
