@@ -626,7 +626,7 @@ ft65_src = ['platform/targets/FT-65/platform.c',
               'platform/drivers/stubs/nvmem_stub.c',
               'platform/drivers/stubs/cps_io_stub.c',
               'platform/drivers/stubs/radio_stub.c',
-              'platform/drivers/stubs/keyboard_stub.c',
+              'platform/drivers/keyboard/keyboard_FT65.c',
               'platform/drivers/stubs/display_stub.c',
               'platform/drivers/stubs/audio_stub.c']
 
