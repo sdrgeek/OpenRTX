@@ -17,6 +17,9 @@
 #include "drivers/GPIO/gpio_mk22.h"
 #elif defined(AT32F423xx)
 #include "gpio_at32f423.h"
+#elif defined(STM32F303xC)
+#include "stm32f3xx.h"
+#include "gpio_stm32.h"
 #endif
 
 #endif /* GPIO_NATIVE_H */

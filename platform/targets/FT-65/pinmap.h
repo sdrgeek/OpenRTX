@@ -77,7 +77,7 @@
 #define RDA_SDIO  GPIOC,10
 #define RDA_SENB  GPIOC,12
 
-/* I2C for AT24C128RM */
+/* I2C for AT24C128RM and RDA5802N */
 #define I2C_SCL GPIOB,8
 #define I2C_SDA GPIOB,9
 

@@ -330,6 +330,9 @@ at32f423_def += miosix_cm4f_def
 stm32f303_src = ['platform/mcu/STM32F3xx/boot/startup.cpp',
                  'platform/mcu/STM32F3xx/boot/bsp.cpp',
                  'platform/mcu/STM32F3xx/boot/libc_integration.cpp',
+                 'platform/drivers/GPIO/gpio_stm32.c',
+                 'platform/mcu/STM32F3xx/drivers/delays.cpp',
+                 'platform/mcu/STM32F3xx/drivers/rtc.c',
                  'platform/mcu/CMSIS/Device/ST/STM32F3xx/Source/system_stm32f3xx.c']
 
 stm32f303_inc = ['platform/mcu/CMSIS/Include',
@@ -619,7 +622,13 @@ dm1701_def += openrtx_def + stm32f405_def
 ## Yaesu FT-65
 ##
 ft65_src = ['platform/targets/FT-65/platform.c',
-              'platform/targets/FT-65/hwconfig.c']
+              'platform/targets/FT-65/hwconfig.c',
+              'platform/drivers/stubs/nvmem_stub.c',
+              'platform/drivers/stubs/cps_io_stub.c',
+              'platform/drivers/stubs/radio_stub.c',
+              'platform/drivers/stubs/keyboard_stub.c',
+              'platform/drivers/stubs/display_stub.c',
+              'platform/drivers/stubs/audio_stub.c']
 
 ft65_inc = ['platform/targets/FT-65']
 ft65_def = {'PLATFORM_FT65': '', 'timegm': 'mktime'}
