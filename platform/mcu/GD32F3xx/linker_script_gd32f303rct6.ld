@@ -5,22 +5,6 @@
  */
 
 /*
- * This chip has an unusual quirk that the RAM is divided in two block mapped
- * at two non contiguous memory addresses. I don't know why they've done that,
- * probably doing the obvious thing would have made writing code too easy...
- * Anyway, since hardware can't be changed, we've got to live with that and
- * try to make use of both RAMs.
- *
- * Given the constraints above, this linker script puts:
- * - read only data and code (.text, .rodata, .eh_*) in FLASH
- * - .data and .bss in the "small" 64KB RAM
- * - the 512Byte main (IRQ) stack, stacks and heap in the "large" 128KB RAM.
- *
- * Unfortunately thread stacks can't be put in the small RAM as Miosix
- * allocates them inside the heap.
- */
-
-/*
  * The main stack is used for interrupt handling by the kernel.
  *
  * *** Readme ***
@@ -49,8 +33,8 @@ _main_stack_size = 0x00000400;                     /* main stack = 1KB */
 _main_stack_top  = 0x20000000 + _main_stack_size;
 ASSERT(_main_stack_size   % 8 == 0, "MAIN stack size error");
 
-/* Mapping the heap into the large 40KB RAM */
-_heap_end = 0x2000A000;                            /* end of available ram  */
+/* Mapping the heap into 48KB RAM */
+_heap_end = 0x2000C000;                            /* end of available ram  */
 
 /* identify the Entry Point  */
 ENTRY(_Z13Reset_Handlerv)
@@ -61,11 +45,10 @@ MEMORY
     /* Reserve space for bootloader and settings */
     flash(rx)    : ORIGIN = 0x08000000, LENGTH = 256K
     /*
-     * Note, the large ram starts at 0x20000000 but it is necessary to add the
+     * Note, the ram starts at 0x20000000 but it is necessary to add the
      * size of the main stack, so it is 0x20000400.
      */
-    smallram(wx) : ORIGIN = 0x10000000, LENGTH = 8K
-    largeram(wx) : ORIGIN = 0x20000400, LENGTH = 40K-0x400
+    ram(wx) : ORIGIN = 0x20000400, LENGTH = 48K-0x400
 }
 
 /* now define the output sections  */
@@ -161,10 +144,10 @@ SECTIONS
         *(.gnu.linkonce.d.*)
         . = ALIGN(8);
         _edata = .;
-    } > smallram AT > flash
+    } > ram AT > flash
     _etext = LOADADDR(.data);
 
-    /* Secondary bss section, placed in the 40kB RAM and not initialized: here
+    /* Secondary bss section, placed in RAM and not initialized: here
        go the display framebuffer and, immediately after it, the heap area. */
     .bss2 (NOLOAD) :
     {
@@ -173,9 +156,9 @@ SECTIONS
         . = ALIGN(8);
         _end = .;
         PROVIDE(end = .);
-    } > largeram
+    } > ram
 
-    /* Primary bss section, placed in the 8kB CCM RAM: uninitialized global variables */
+    /* Primary bss section, placed in RAM: uninitialized global variables */
     .bss :
     {
         _bss_start = .;
@@ -183,6 +166,6 @@ SECTIONS
         *(.bss.*)
         *(.gnu.linkonce.b.*)
         . = ALIGN(8);
-    } > smallram
+    } > ram
     _bss_end = .;
 }

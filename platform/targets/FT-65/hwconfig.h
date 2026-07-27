@@ -7,7 +7,7 @@
 #ifndef HWCONFIG_H
 #define HWCONFIG_H
 
-#include "stm32f3xx.h"
+#include "gd32f30x.h"
 #include "pinmap.h"
 
 #ifdef __cplusplus

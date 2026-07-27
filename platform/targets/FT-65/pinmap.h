@@ -7,7 +7,7 @@
 #ifndef PINMAP_H
 #define PINMAP_H
 
-#include "stm32f3xx.h"
+#include "gd32f30x.h"
 
 /* Display */
 #define LCD_CS  GPIOB,3

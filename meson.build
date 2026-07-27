@@ -347,6 +347,26 @@ stm32f303_inc += miosix_cm4f_inc
 stm32f303_def += miosix_cm4f_def
 
 ##
+## GD32F303
+##
+
+gd32f303_src = ['platform/mcu/GD32F3xx/boot/startup.cpp',
+                 'platform/mcu/GD32F3xx/boot/bsp.cpp',
+                 'platform/mcu/GD32F3xx/boot/libc_integration.cpp',
+                 'platform/mcu/CMSIS/Device/GD/GD32F3xx/Source/system_gd32f30x.c']
+
+gd32f303_inc = ['platform/mcu/CMSIS/Include',
+                 'platform/mcu/CMSIS/Device/GD/GD32F3xx/Include',
+                 'platform/mcu/GD32F3xx',
+                 'platform/mcu/GD32F3xx/drivers']
+
+gd32f303_def = {'GD32F30X_HD': ''}
+
+gd32f303_src += miosix_cm4f_src
+gd32f303_inc += miosix_cm4f_inc
+gd32f303_def += miosix_cm4f_def
+
+##
 ## ----------------------- Platform specializations ----------------------------
 ##
 
@@ -633,9 +653,9 @@ ft65_src = ['platform/targets/FT-65/platform.c',
 ft65_inc = ['platform/targets/FT-65']
 ft65_def = {'PLATFORM_FT65': '', 'timegm': 'mktime'}
 
-ft65_src += openrtx_src + stm32f303_src + ui_src_default
-ft65_inc += openrtx_inc + stm32f303_inc
-ft65_def += openrtx_def + stm32f303_def
+ft65_src += openrtx_src + gd32f303_src + ui_src_default
+ft65_inc += openrtx_inc + gd32f303_inc
+ft65_def += openrtx_def + gd32f303_def
 
 ##
 ## -------------------------- Compilation arguments ----------------------------
@@ -892,7 +912,7 @@ ft65_opts = {
   'dependencies'       : [codec2_dep],
   'c_args'             : ft65_args,
   'cpp_args'           : ft65_args,
-  'link_args'          : ['-Wl,-T../platform/mcu/STM32F3xx/linker_script_stm32f303rct6.ld'],
+  'link_args'          : ['-Wl,-T../platform/mcu/GD32F3xx/linker_script_gd32f303rct6.ld'],
 }
 
 ##
